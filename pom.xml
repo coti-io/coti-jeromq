@@ -1,12 +1,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.zeromq</groupId>
+  <groupId>io.coti</groupId>
   <artifactId>jeromq</artifactId>
   <packaging>jar</packaging>
-  <version>0.5.3-SNAPSHOT</version>
-  <name>JeroMQ</name>
+  <version>1.0.0-SNAPSHOT</version>
+  <name>Coti-JeroMQ</name>
   <description>Pure Java implementation of libzmq</description>
-  <url>https://github.com/zeromq/jeromq</url>
+  <url>https://github.com/coti-io/coti-jeromq.git</url>
   <licenses>
     <license>
       <name>Mozilla Public License version 2.0</name>
@@ -14,9 +14,9 @@
     </license>
   </licenses>
   <scm>
-    <url>git@github.com:zeromq/jeromq.git</url>
-    <connection>scm:git:git@github.com:zeromq/jeromq.git</connection>
-    <developerConnection>scm:git:git@github.com:zeromq/jeromq.git</developerConnection>
+    <url>git@github.com:coti-io/coti-jeromq.git</url>
+    <connection>scm:git:git@github.com:coti-io/coti-jeromq.git</connection>
+    <developerConnection>scm:git:git@github.com:coti-io/coti-jeromq.git</developerConnection>
     <tag>HEAD</tag>
   </scm>
   <developers>
@@ -40,6 +40,17 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+    <dependency>
       <groupId>eu.neilalexander</groupId>
       <artifactId>jnacl</artifactId>
       <version>1.0.0</version>
@@ -48,11 +59,11 @@
   <distributionManagement>
     <snapshotRepository>
       <id>ossrh</id>
-      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
     </snapshotRepository>
     <repository>
       <id>ossrh</id>
-      <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+      <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
     </repository>
   </distributionManagement>
   <build>
@@ -134,7 +145,7 @@
         <extensions>true</extensions>
         <configuration>
            <serverId>ossrh</serverId>
-           <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+           <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
            <autoReleaseAfterClose>true</autoReleaseAfterClose>
         </configuration>
       </plugin>
