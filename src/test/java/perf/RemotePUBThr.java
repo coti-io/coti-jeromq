@@ -40,7 +40,7 @@ public class RemotePUBThr {
 
         //  Add your socket options here.
         //  For example ZMQ_RATE, ZMQ_RECOVERY_IVL and ZMQ_MCAST_LOOP for PGM.
-        ZMQ.setSocketOption(pub,ZMQ.ZMQ_SNDHWM,1000);
+        ZMQ.setSocketOption(pub,ZMQ.ZMQ_SNDHWM, (int) messageCount);
         rc = ZMQ.bind(pub, connectTo);
         if (!rc) {
             printf("error in connect: %s\n");
