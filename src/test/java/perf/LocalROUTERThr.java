@@ -5,9 +5,9 @@ import zmq.Msg;
 import zmq.SocketBase;
 import zmq.ZMQ;
 
-public class LocalThr
+public class LocalROUTERThr
 {
-    private LocalThr()
+    private LocalROUTERThr()
     {
     }
 
@@ -40,7 +40,7 @@ public class LocalThr
             return;
         }
 
-        s = ZMQ.socket(ctx, ZMQ.ZMQ_PULL);
+        s = ZMQ.socket(ctx, ZMQ.ZMQ_ROUTER);
         if (s == null) {
             printf("error in socket");
         }
@@ -62,13 +62,13 @@ public class LocalThr
 
         watch = ZMQ.startStopwatch();
 
-        for (i = 0; i != messageCount - 1; i++) {
+        for (i = 0; i != messageCount*2 - 1; i++) {
             msg = ZMQ.recvMsg(s, 0);
             if (msg == null) {
                 printf("error in recvmsg: %s\n");
                 return;
             }
-            if (ZMQ.msgSize(msg) != messageSize) {
+            if (i%2==0 && ZMQ.msgSize(msg) != messageSize) {
                 printf("message of incorrect size received " + ZMQ.msgSize(msg));
                 return;
             }
@@ -79,14 +79,14 @@ public class LocalThr
             elapsed = 1;
         }
 
-        throughput = (long) ((double) messageCount / (double) elapsed * 1000000L);
+        throughput = (long) (((double) messageCount /(double) elapsed) * 1000000L);
         megabits = (double) (throughput * messageSize * 8) / 1000000;
 
-        printf("message elapsed: %.3f \n", (double) elapsed / 1000000L);
-        printf("message size: %d [B]\n", (int) messageSize);
-        printf("message count: %d\n", (int) messageCount);
-        printf("mean throughput: %d [msg/s]\n", (int) throughput);
-        printf("mean throughput: %.3f [Mb/s]\n", (double) megabits);
+        printf("time elapsed: %.3f", (double) elapsed / 1000000L);
+        printf("message size: %d [B]", (int) messageSize);
+        printf("message count: %d", (int) messageCount);
+        printf("message throughput: %d [msg/s]", (int) throughput);
+        printf("message throughput: %.3f [Mb/s]", (double) megabits);
 
         ZMQ.close(s);
 

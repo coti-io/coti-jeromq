@@ -117,12 +117,14 @@ public class InprocLat
         }
 
         long elapsed = ZMQ.stopStopwatch(watch);
-
-        double latency = (double) elapsed / (roundtripCount * 2);
+        long throughput = (long) (((double) roundtripCount /(double) elapsed) * 1000000L);
+        double latency = (double) elapsed / ((double)roundtripCount * 2 * 1000000);
 
         localThread.join();
 
-        printf("average latency: %.3f [us]\n", (double) latency);
+        printf("average time: %.3f [sec]", (double) elapsed/1000000);
+        printf("average latency: %.9f", latency);
+        printf("message throughput: %d [msg/s]", throughput);
 
         ZMQ.close(s);
 

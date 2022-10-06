@@ -5,9 +5,9 @@ import zmq.Msg;
 import zmq.SocketBase;
 import zmq.ZMQ;
 
-public class RemoteThr
+public class RemoteDEALERThr
 {
-    private RemoteThr()
+    private RemoteDEALERThr()
     {
     }
 
@@ -36,7 +36,7 @@ public class RemoteThr
             return;
         }
 
-        s = ZMQ.socket(ctx, ZMQ.ZMQ_PUSH);
+        s = ZMQ.socket(ctx, ZMQ.ZMQ_DEALER);
         if (s == null) {
             printf("error in socket");
         }
