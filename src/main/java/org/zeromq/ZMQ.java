@@ -4261,6 +4261,9 @@ public class ZMQ
         {
             zmq.ZMQ.Event e = zmq.ZMQ.Event.read(socket.base, flags);
             Object resolvedValue;
+            if (e == null) {
+                return null;
+            }
             switch (e.event) {
             case zmq.ZMQ.ZMQ_EVENT_HANDSHAKE_FAILED_PROTOCOL:
                 resolvedValue = ZMonitor.ProtocolCode.findByCode((Integer) e.arg);

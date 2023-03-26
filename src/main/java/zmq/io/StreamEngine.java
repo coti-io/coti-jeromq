@@ -33,9 +33,11 @@ import zmq.util.ValueReference;
 import zmq.util.Wire;
 import zmq.util.function.Function;
 import zmq.util.function.Supplier;
+import lombok.extern.slf4j.Slf4j;
 
 // This engine handles any socket with SOCK_STREAM semantics,
 // e.g. TCP socket or an UNIX domain socket.
+@Slf4j
 public class StreamEngine implements IEngine, IPollEvents
 {
     private final class ProducePongMessage implements Supplier<Msg>
@@ -1111,6 +1113,7 @@ public class StreamEngine implements IEngine, IPollEvents
             Msg terminator = new Msg();
             processMsg.apply(terminator);
         }
+        log.error("StreamEngine::error() - ZeroMQ is sending event DISCONNECTED with error reason: " + error);
         assert (session != null);
         socket.eventDisconnected(endpoint, fd);
         session.flush();
